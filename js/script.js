@@ -1,28 +1,28 @@
+
 // ==========================
 // REVEAL AO SCROLL
 // ==========================
 
-const reveals = document.querySelectorAll(".reveal");
+const reveals =
+  document.querySelectorAll(".reveal");
 
 function revealOnScroll() {
 
   reveals.forEach((element) => {
 
-    const windowHeight = window.innerHeight;
+    const windowHeight =
+      window.innerHeight;
 
-    const elementTop = element.getBoundingClientRect().top;
+    const elementTop =
+      element.getBoundingClientRect().top;
 
     const revealPoint = 100;
 
-    // aparece
     if (elementTop < windowHeight - revealPoint) {
 
       element.classList.add("active");
 
-    } 
-    
-    // some novamente ao voltar
-    else {
+    } else {
 
       element.classList.remove("active");
 
@@ -32,59 +32,106 @@ function revealOnScroll() {
 
 }
 
-window.addEventListener("scroll", revealOnScroll);
+window.addEventListener(
+  "scroll",
+  revealOnScroll
+);
 
 revealOnScroll();
 
 
 // ==========================
-// NAVBAR + LOGO DINÂMICO
+// COLLAPSIBLE EXPOSIÇÕES
 // ==========================
 
-const navbar = document.querySelector(".navbar");
+const toggles =
+  document.querySelectorAll(".expo-toggle");
 
-const logo = document.querySelector(".logo");
+toggles.forEach(toggle => {
 
-window.addEventListener("scroll", () => {
+  toggle.addEventListener("click", () => {
 
-  // navbar blur
+    toggle.classList.toggle("active");
 
-  if (window.scrollY > 50) {
+    const content =
+      toggle.nextElementSibling;
 
-    navbar.style.background = "rgba(243, 240, 234, 0.75)";
-    navbar.style.backdropFilter = "blur(14px)";
+    content.classList.toggle("open");
 
-  } else {
-
-    navbar.style.background = "rgba(243, 240, 234, 0.9)";
-    navbar.style.backdropFilter = "blur(10px)";
-
-  }
-
-
-  // logo grande -> pequeno
-
-  const scale = Math.max(
-    1,
-    2.5 - window.scrollY / 300
-  );
-
-  logo.style.transform = `scale(${scale})`;
+  });
 
 });
 
 
 // ==========================
-// PARALLAX HERO IMAGE
+// NAVBAR DINÂMICA
 // ==========================
 
-const heroImage = document.querySelector(".hero-image img");
+const navbar =
+  document.querySelector(".navbar");
+
+const logo =
+  document.querySelector(".logo");
+
+const navLinks =
+  document.querySelectorAll("nav a");
 
 window.addEventListener("scroll", () => {
 
-  const scroll = window.scrollY;
+  // BLUR
 
-  heroImage.style.transform =
-    `translateY(${scroll * 0.08}px)`;
+  if (window.scrollY > 50) {
+
+    navbar.style.background =
+      "rgba(243, 240, 234, 0.75)";
+
+    navbar.style.backdropFilter =
+      "blur(14px)";
+
+  } else {
+
+    navbar.style.background =
+      "rgba(243, 240, 234, 0.9)";
+
+    navbar.style.backdropFilter =
+      "blur(10px)";
+  }
+
+
+  // NAVBAR DIMINUI
+
+  const padding = Math.max(
+    1.5,
+    4 - window.scrollY / 150
+  );
+
+  navbar.style.padding =
+    `${padding}rem 4rem`;
+
+
+  // LOGO
+
+  const scale = Math.max(
+    1,
+    10 - window.scrollY / 100
+  );
+
+  logo.style.transform =
+    `scale(${scale})`;
+
+
+  // LINKS
+
+  const linkSize = Math.max(
+    0.95,
+    1.2 - window.scrollY / 1000
+  );
+
+  navLinks.forEach(link => {
+
+    link.style.fontSize =
+      `${linkSize}rem`;
+
+  });
 
 });
